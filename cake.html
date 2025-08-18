@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Cake</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .cake-container {
+      position: relative;
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+    .cake {
+      width: 260px;
+      height: 160px;
+      background: #fff0f5;
+      border-radius: 0 0 120px 120px/0 0 80px 80px;
+      box-shadow: 0 8px 32px #c97a7a88;
+      position: relative;
+      z-index: 2;
+      border: 4px solid #ffb6b9;
+    }
+    .cake-top {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 60px;
+      background: #ffb6b9;
+      border-radius: 110px 110px 60px 60px/60px 60px 30px 30px;
+      z-index: 3;
+      border: 3px solid #fff0f5;
+    }
+    .candle {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 48px;
+      background: repeating-linear-gradient(
+        135deg,
+        #fff 0 6px,
+        #ffb6b9 6px 12px
+      );
+      border-radius: 8px;
+      z-index: 4;
+      box-shadow: 0 2px 8px #c97a7a55;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .flame {
+      width: 16px;
+      height: 24px;
+      background: radial-gradient(ellipse at center, #fffbe6 60%, #ffecb3 80%, #ffb300 100%);
+      border-radius: 50% 50% 60% 60%;
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: flame-flicker 1s infinite alternate;
+      opacity: 0.92;
+      z-index: 5;
+      box-shadow: 0 0 18px 6px #ffd70088;
+    }
+    @keyframes flame-flicker {
+      0% { transform: translateX(-50%) scaleY(1) scaleX(1); opacity: 0.92;}
+      40% { transform: translateX(-50%) scaleY(1.08) scaleX(0.95); opacity: 1;}
+      60% { transform: translateX(-50%) scaleY(0.95) scaleX(1.05); opacity: 0.85;}
+      100% { transform: translateX(-50%) scaleY(1.1) scaleX(0.9); opacity: 1;}
+    }
+    .cake-text {
+      position: absolute;
+      width: 100%;
+      top: 60px;
+      left: 0;
+      text-align: center;
+      font-family: 'Pacifico', cursive, 'Segoe Script', sans-serif;
+      font-size: 2.1rem;
+      color: #d72660;
+      text-shadow: 0 2px 8px #fff8, 0 1px 0 #fff;
+      z-index: 6;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+    .msg {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      color: #d72660;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background: rgba(255,255,255,0.7);
+      border-radius: 18px;
+      padding: 24px 18px;
+      box-shadow: 0 2px 24px #d7266022;
+      max-width: 90vw;
+      line-height: 1.5;
+      z-index: 10;
+      position: relative;
+    }
+    /* Heart confetti */
+    .heart {
+      position: fixed;
+      font-size: 2rem;
+      pointer-events: none;
+      z-index: 100;
+      animation: fall 3.5s linear forwards;
+      opacity: 0.85;
+      filter: drop-shadow(0 2px 6px #d7266088);
+    }
+    @keyframes fall {
+      0% { transform: translateY(-60px) scale(1) rotate(0deg);}
+      80% { opacity: 1;}
+      100% { transform: translateY(110vh) scale(1.2) rotate(360deg); opacity: 0;}
+    }
+    .back-btn {
+      margin-top: 38px;
+      padding: 14px 32px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      background: linear-gradient(90deg,#ffb6b9,#ffdde1);
+      color: #d72660;
+      border: none;
+      border-radius: 32px;
+      box-shadow: 0 2px 16px #d7266022;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .back-btn:hover {
+      background: linear-gradient(90deg,#ffdde1,#ffb6b9);
+      transform: scale(1.06);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="cake-container">
+    <div class="cake-top"></div>
+    <div class="cake">
+      <div class="cake-text">Happy Birthday Isshaaa!</div>
+      <div class="candle">
+        <div class="flame"></div>
+      </div>
+    </div>
+  </div>
+  <div class="msg">
+    <span style="font-size:1.7rem;">💖</span><br>
+    You are the sweetest part of my life.<br>
+    Even from miles away, my heart is always with you.<br>
+    May your year be as beautiful and magical as you are.<br>
+    <span style="font-size:1.3rem;">Happy Birthday, my love!<br>
+    Forever yours,<br>
+    <span style="color:#d72660;font-weight:bold;">Senorita's Mickey</span> 🥰</span>
+  </div>
+  <!--
+  <button class="back-btn" onclick="window.location.href='fireworks.html'">← Back to Fireworks</button>
+-->
+  <button class="back-btn" onclick="window.location.href='letters.html'">💌 Read My Letters</button>
+  
+<script>
+    //Heart confetti animation
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = Math.random() > 0.5 ? '❤️' : '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (1.5 + Math.random() * 1.5) + 'rem';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3500);
+    }
+    setInterval(createHeart, 350);
+
+    // Optional: Candle flame flicker sound (if you want, add a soft sound here)
+    // You can add a soft birthday tune if you want, using <audio> tag.
+  </script>
+</body>
+</html>

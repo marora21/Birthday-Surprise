@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Letters for You</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(120deg, #fbc2eb 0%, #a6c1ee 100%);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 48px;
+    }
+    h1 {
+      color: #d72660;
+      margin-bottom: 24px;
+      font-family: 'Pacifico', cursive, 'Segoe Script', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #fff8;
+    }
+    .letters-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .letter-card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 18px;
+      box-shadow: 0 2px 16px #d7266022;
+      padding: 32px 28px;
+      min-width: 220px;
+      min-height: 120px;
+      font-size: 1.2rem;
+      color: #d72660;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      text-align: center;
+      font-weight: 500;
+      border: 2px solid #fff0f5;
+    }
+    .letter-card:hover {
+      transform: scale(1.04) translateY(-4px);
+      box-shadow: 0 6px 32px #d7266044;
+      background: #fff0f5;
+    }
+    /* Modal styles */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-bg.active {
+      display: flex;
+    }
+    .modal {
+      background: #fff;
+      border-radius: 18px;
+      padding: 36px 28px;
+      max-width: 90vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 4px 32px #d7266088;
+      color: #d72660;
+      font-size: 1.25rem;
+      position: relative;
+      text-align: left;
+      animation: popIn 0.4s;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0;}
+      100% { transform: scale(1); opacity: 1;}
+    }
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      font-size: 1.7rem;
+      color: #d72660;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .close-btn:hover {
+      color: #a61c46;
+    }
+    .back-btn {
+      margin-top: 24px;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      background: linear-gradient(90deg,#ffb6b9,#ffdde1);
+      color: #d72660;
+      border: none;
+      border-radius: 32px;
+      box-shadow: 0 2px 16px #d7266022;
+      cursor: pointer;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .back-btn:hover {
+      background: linear-gradient(90deg,#ffdde1,#ffb6b9);
+      transform: scale(1.06);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Letters for You 💌</h1>
+  <div class="letters-list">
+    <div class="letter-card" data-msg="msg1">For My Senorita 💖</div>
+    <div class="letter-card" data-msg="msg2">When I Miss You 🥺</div>
+    <div class="letter-card" data-msg="msg3">Our Memories 📸</div>
+    <!-- Add more cards as you want -->
+  </div>
+  <button class="back-btn" onclick="window.location.href='fireworks.html'">← Back to Fireworks</button>
+
+  <!-- Modal Popup -->
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal" id="modal">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script>
+    /*
+    // Your big messages here
+    const messages = {
+      msg1: `
+        <b>For My Senorita 💖</b><br><br>
+        Kabhi socha nahi tha ki kisi ko itna miss kar sakta hoon.<br>
+        Tumhari muskurahat, tumhari baatein, sab kuch yaad aata hai.<br>
+        Har din, har raat, bas tumhara khayal rehta hai.<br>
+        I hope you always feel loved, no matter how far I am.<br>
+        <br>
+        <i>Love you endlessly,<br>Mickey</i>
+      `,
+      msg2: `
+        <b>When I Miss You 🥺</b><br><br>
+        Jab bhi tum door hoti ho, lagta hai kuch adhoora hai.<br>
+        Tumhari awaaz, tumhara hansna, sab kuch yaad aata hai.<br>
+        Bas ek pal ke liye tumhe dekh loon, toh din ban jaata hai.<br>
+        <br>
+        <i>Miss you, my love!</i>
+      `,
+      msg3: `
+        <b>Our Memories 📸</b><br><br>
+        Har choti badi yaad, har moment mere dil ke bohot kareeb hai.<br>
+        Chahe woh choti si masti ho ya koi lambi baat, sab kuch anmol hai.<br>
+        Thank you for being my best friend, my love, my everything.<br>
+        <br>
+        <i>Forever yours,<br>Mickey</i>
+      `
+      s
+      // Add more messages here as needed
+    };
+*/
+    // Modal logic
+    const modalBg = document.getElementById('modal-bg');
+    const modalContent = document.getElementById('modal-content');
+    document.querySelectorAll('.letter-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const key = card.getAttribute('data-msg');
+        modalContent.innerHTML = messages[key] || "No message found.";
+        modalBg.classList.add('active');
+      });
+    });
+    function closeModal() {
+      modalBg.classList.remove('active');
+    }
+    // Close modal on background click
+    modalBg.addEventListener('click', (e) => {
+      if (e.target === modalBg) closeModal();
+    });
+    // Optional: ESC key closes modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+  </script>
+</body>
+</html>

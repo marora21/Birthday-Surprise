@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday Celebration</title>
+    <link rel="stylesheet" href="styles/App.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #000;
+        }
+        .celebration-bg {
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(-45deg, #232946, #181818, #3a3a5d, #232946, #000);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease-in-out infinite;
+        }
+        @keyframes gradientMove {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        .firework-launch {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 0;
+            height: 100%;
+            z-index: 2;
+        }
+        .rocket {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            font-size: 2.5rem;
+            animation: rocketUp 2.2s cubic-bezier(.4,1.6,.6,1) infinite;
+        }
+        .burst {
+            position: absolute;
+            left: 50%;
+            top: 18%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            opacity: 0;
+            animation: burstShow 2.2s cubic-bezier(.4,1.6,.6,1) infinite;
+            pointer-events: none;
+        }
+        @keyframes rocketUp {
+            0%   { bottom: 0; opacity: 1; }
+            70%  { bottom: 82%; opacity: 1; }
+            80%  { bottom: 82%; opacity: 0; }
+            100% { bottom: 82%; opacity: 0; }
+        }
+        @keyframes burstShow {
+            0%, 65% { opacity: 0; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0; top: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            color: #fff;
+            opacity: 0.7;
+            font-size: 1rem;
+            animation: twinkle 2s infinite alternate;
+        }
+        .star:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s;}
+        .star:nth-child(2) { left: 30%; top: 10%; animation-delay: 0.5s;}
+        .star:nth-child(3) { left: 60%; top: 25%; animation-delay: 1s;}
+        .star:nth-child(4) { left: 80%; top: 15%; animation-delay: 1.5s;}
+        .star:nth-child(5) { left: 50%; top: 5%; animation-delay: 0.8s;}
+        .star:nth-child(6) { left: 70%; top: 30%; animation-delay: 1.2s;}
+        @keyframes twinkle {
+            0% { opacity: 0.7; }
+            100% { opacity: 0.2; }
+        }
+        .hearts-bg {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2.2rem;
+            opacity: 0.7;
+            animation: floatHeart 8s linear infinite;
+        }
+        .heart:nth-child(1) { left: 10%; top: 85%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 22%; top: 92%; animation-delay: 2s; }
+        .heart:nth-child(3) { left: 35%; top: 88%; animation-delay: 1s; }
+        .heart:nth-child(4) { left: 48%; top: 95%; animation-delay: 3s; }
+        .heart:nth-child(5) { left: 62%; top: 90%; animation-delay: 1.5s; }
+        .heart:nth-child(6) { left: 75%; top: 93%; animation-delay: 2.5s; }
+        .heart:nth-child(7) { left: 85%; top: 85%; animation-delay: 0.5s; }
+        .heart:nth-child(8) { left: 60%; top: 98%; animation-delay: 4s; }
+        .heart:nth-child(9) { left: 40%; top: 93%; animation-delay: 2.2s; }
+        .heart:nth-child(10) { left: 90%; top: 89%; animation-delay: 3.5s; }
+
+        @keyframes floatHeart {
+            0%   { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.7; }
+            10%  { opacity: 1; }
+            80%  { opacity: 1; }
+            100% { transform: translateY(-90vh) scale(1.2) rotate(15deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="celebration-bg">
+        <div class="stars">
+            <span class="star">✦</span>
+            <span class="star">✦</span>
+            <span class="star">✦</span>
+            <span class="star">✦</span>
+            <span class="star">✦</span>
+            <span class="star">✦</span>
+        </div>
+        <div class="hearts-bg">
+            <span class="heart">💖</span>
+            <span class="heart">💋</span>
+            <span class="heart">❤️</span>
+            <span class="heart">💞</span>
+            <span class="heart">💋</span>
+            <span class="heart">💖</span>
+            <span class="heart">💗</span>
+            <span class="heart">💋</span>
+            <span class="heart">💓</span>
+            <span class="heart">💋</span>
+        </div>
+        <div class="firework-launch">
+            <span class="rocket">🎆</span>
+            <span class="burst">✨🎇✨</span>
+        </div>
+    </div>
+</body>
+</html>

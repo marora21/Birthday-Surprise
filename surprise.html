@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Surprise! 💖</title>
+    <link rel="stylesheet" href="styles/App.css">
+    <style>
+        .surprise-bg {
+            min-height: 100vh;
+            width: 100vw;
+            background: radial-gradient(circle at 50% 30%, #ffe6f0 60%, #ffb6d5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .emoji-bg { z-index: 1; }
+        .center-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 90%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        .border-box {
+            background: rgba(255,255,255,0.7);
+            border-radius: 35px;
+            padding: 2rem 2rem;
+            box-shadow: 0 8px 32px 0 rgba(255, 105, 180, 0.2);
+            text-align: center;
+            color: #d72660;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.9rem;
+            border: 2px dashed #ff69b4;
+        }
+        .enter-btn {
+            background: #ff69b4;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-family: inherit;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            transition: background 0.2s;
+        }
+        .enter-btn:hover {
+            background: #d72660;
+        }
+        .gif-box {
+            background: rgba(255,255,255,0.7);
+            border-radius: 30px;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 8px 32px 0 rgba(255, 105, 180, 0.2);
+            text-align: center;
+            border: 2px solid #d72660;
+        }
+        .gif-box img {
+            width: 120px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="surprise-bg">
+        <div class="emoji-bg">
+            <span>💖</span><span>🎁</span><span>💝</span><span>💌</span><span>💗</span>
+            <span>💓</span><span>💞</span><span>❤️</span><span>🎈</span><span>🎂</span>
+            <span>💖</span><span>🎁</span><span>💝</span><span>💌</span><span>💗</span>
+            <span>💓</span><span>💞</span><span>❤️</span><span>🎈</span><span>🎂</span>
+        </div>
+        <div class="center-content">
+            <div class="border-box">
+                🥹 it's a special day for me❤️
+            </div>
+            
+            <button class="enter-btn" onclick="window.location.href='fireworks.html'">enter my day ❤️</button>
+            <div class="gif-box">
+                <img src="emoji.gif" alt="Emoji GIF">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

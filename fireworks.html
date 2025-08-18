@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fireworks Animation</title>
+  <style>
+    body { margin: 0; background: #111; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks"></canvas>
+  <div id="birthday-msg" style="
+  display:none;
+  position:fixed;
+  top:0; left:0; width:100vw; height:100vh;
+  background:rgba(0,0,0,0.55);
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+">
+    <div id="msg-text" style="
+    color:#fff;
+    font-size:2.2rem;
+    font-family: 'Segoe UI', sans-serif;
+    text-align:center;
+    background:rgba(0,0,0,0.7);
+    border-radius:18px;
+    padding:36px 24px;
+    box-shadow:0 4px 32px #000a;
+    max-width:90vw;
+    line-height:1.4;
+    opacity:0;
+    transition:opacity 1.5s;
+  ">
+      <div class="msg-line" style="opacity:0; transition:opacity 1s;">🎂 Happy Birthday, my Senorita! 🎂</div>
+      <div class="msg-line" style="opacity:0; transition:opacity 1s;">
+        Aaj main tujhse kafi door hu, but my heart, my blessings, are always with u 🤍
+      </div>
+      <div class="msg-line" style="opacity:0; transition:opacity 1s;">
+        Har saans, har pal me you are with me. I wish I could see your smile today. 🥺
+      </div>
+      <div class="msg-line" style="opacity:0; transition:opacity 1s;">
+        bhai i swear teri khushi he mere liye sabse badi gift hai 🤗
+      </div>
+      <div class="msg-line" style="opacity:0; transition:opacity 1s;">
+        I love you more than words can say. 😩🥹<br>
+        My lovely baby Isshaaa💕
+        <span id="heart-emoji" style="display:inline-block; opacity:0; transform:scale(0.7); transition:opacity 0.7s, transform 0.7s;">❤️</span>
+        <span id="kiss-emoji" style="display:inline-block; opacity:0; transform:scale(0.7); transition:opacity 0.7s, transform 0.7s;">😘</span>
+      </div>
+      <button id="celebrate-btn" style="
+        margin-top:32px;
+        opacity:0;
+        pointer-events:auto;
+        padding:16px 36px;
+        font-size:1.3rem;
+        font-family:inherit;
+        background:linear-gradient(90deg,#ff7eb3,#ff758c,#ff7eb3);
+        color:#fff;
+        border:none;
+        border-radius:32px;
+        box-shadow:0 2px 16px #0005;
+        cursor:pointer;
+        transition:opacity 1s, transform 0.3s;
+        outline:none;
+        font-weight:bold;
+        letter-spacing:1px;
+        display:inline-block;
+      ">🎂 Click to Celebrate 🎉</button>
+    </div>
+  </div>
+  <script>
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth, H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    function randomColor() {
+      return `hsl(${Math.random() * 360}, 100%, 60%)`;
+    }
+
+    function Firework() {
+      this.x = Math.random() * W;
+      this.y = H;
+      this.targetY = Math.random() * (H / 2);
+      this.color = randomColor();
+      this.radius = 2 + Math.random() * 2;
+      this.exploded = false;
+      this.particles = [];
+      this.vy = -7 - Math.random() * 3;
+    }
+
+    Firework.prototype.update = function() {
+      if (!this.exploded) {
+        this.y += this.vy;
+        if (this.y <= this.targetY) {
+          this.exploded = true;
+          for (let i = 0; i < 30; i++) {
+            this.particles.push(new Particle(this.x, this.y, this.color));
+          }
+        }
+      } else {
+        this.particles.forEach(p => p.update());
+      }
+    };
+
+    Firework.prototype.draw = function() {
+      if (!this.exploded) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      } else {
+        this.particles.forEach(p => p.draw());
+      }
+    };
+
+    function Particle(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      this.radius = 1 + Math.random() * 2;
+      this.angle = Math.random() * 2 * Math.PI;
+      this.speed = 2 + Math.random() * 3;
+      this.alpha = 1;
+    }
+
+    Particle.prototype.update = function() {
+      this.x += Math.cos(this.angle) * this.speed;
+      this.y += Math.sin(this.angle) * this.speed;
+      this.speed *= 0.96;
+      this.alpha -= 0.02;
+    };
+
+    Particle.prototype.draw = function() {
+      if (this.alpha <= 0) return;
+      ctx.save();
+      ctx.globalAlpha = this.alpha;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.restore();
+    };
+
+    // Emoji Particle Class
+    function EmojiParticle(emoji) {
+      this.emoji = emoji;
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.size = 32 + Math.random() * 16;
+      const angle = Math.random() * 2 * Math.PI;
+      this.vx = 1.2 * Math.cos(angle);
+      this.vy = 1.2 * Math.sin(angle);
+    }
+
+    EmojiParticle.prototype.update = function() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // Bounce from edges
+      if (this.x < 0 || this.x > W) this.vx *= -1;
+      if (this.y < 0 || this.y > H) this.vy *= -1;
+    };
+
+    EmojiParticle.prototype.draw = function() {
+      ctx.save();
+      ctx.font = `${this.size}px serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.globalAlpha = 0.85;
+      ctx.fillText(this.emoji, this.x, this.y);
+      ctx.restore();
+    };
+
+    // Create emoji particles
+    const emojis = ["❤️", "😘"];
+    let emojiParticles = [];
+    for (let i = 0; i < 12; i++) {
+      emojiParticles.push(new EmojiParticle(emojis[i % emojis.length]));
+    }
+
+    let fireworks = [];
+
+    function animate() {
+      ctx.fillStyle = 'rgba(17,17,17,0.2)';
+      ctx.fillRect(0, 0, W, H);
+
+      // Animate emoji particles
+      emojiParticles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      // Animate fireworks
+      if (Math.random() < 0.04) {
+        fireworks.push(new Firework());
+      }
+
+      fireworks.forEach((fw, i) => {
+        fw.update();
+        fw.draw();
+        if (fw.exploded && fw.particles.every(p => p.alpha <= 0)) {
+          fireworks.splice(i, 1);
+        }
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+    });
+
+    // Show birthday message after 5 seconds with animation
+    setTimeout(() => {
+      const msgDiv = document.getElementById('birthday-msg');
+      const msgText = document.getElementById('msg-text');
+      msgDiv.style.display = "flex";
+      setTimeout(() => {
+        msgText.style.opacity = "1";
+        // Animate each line one by one
+        const lines = msgText.querySelectorAll('.msg-line');
+        lines.forEach((line, idx) => {
+          setTimeout(() => {
+            line.style.opacity = "1";
+            // Animate emojis on last line
+            if (idx === lines.length - 1) {
+              setTimeout(() => {
+                const heart = document.getElementById('heart-emoji');
+                const kiss = document.getElementById('kiss-emoji');
+                heart.style.opacity = "1";
+                heart.style.transform = "scale(1.2)";
+                setTimeout(() => {
+                  kiss.style.opacity = "1";
+                  kiss.style.transform = "scale(1.2)";
+                }, 400);
+                // Add pulsing effect
+                setInterval(() => {
+                  heart.style.transform = "scale(1.1)";
+                  setTimeout(() => heart.style.transform = "scale(1.2)", 350);
+                }, 700);
+                setInterval(() => {
+                  kiss.style.transform = "scale(1.1)";
+                  setTimeout(() => kiss.style.transform = "scale(1.2)", 350);
+                }, 900);
+              }, 700);
+              // Show celebrate button 2s after last line
+              setTimeout(() => {
+                const btn = document.getElementById('celebrate-btn');
+                btn.style.opacity = "1";
+                btn.style.transform = "scale(1.08)";
+                setTimeout(() => {
+                  btn.style.transform = "scale(1)";
+                }, 400);
+              }, 2000);
+            }
+          }, 700 * idx);
+        });
+      }, 100); // small delay for transition
+    }, 5000);
+
+    // Button click logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('celebrate-btn');
+      btn.addEventListener('click', () => {
+        window.location.href = "cake.html";
+      });
+    });
+  </script>
+</body>
+</html>
